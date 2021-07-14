@@ -1,7 +1,11 @@
 import data.matrix.basic
-import algebra.ring.basic
+import algebra.euclidean_domain
+
+
 
 section pid_module
+
+universe v
 
 -- Statement_2.1 
 theorem MZ_to_diag
@@ -13,20 +17,19 @@ theorem MZ_to_diag
   --(P₄: has_mul (matrix (fin M) (fin N) ℤ))
   --(P₅: has_mul (matrix (fin N) (fin N) ℤ))
   --(K := max M N )
-  {m : Type u_1}{n : Type u_2}
+  {m : Type* }{n : Type* }
   [fintype m] [fintype n]
-  {c : Type v} [non_unital_semiring c]
+  {c : Type v} [euclidean_domain c]
   (C : matrix m n c)
   (P₁: has_zero m)
   (P₂: has_zero n)
   (P₃ : (C 0 0) ≠ 0)
   (P₄: has_one n)
-  --(P₅: has_mul (matrix m n ℤ))
-  --(P₆: has_mul (matrix n n ℤ))
-  (i:m)
-  (j:n)
+  (P₅: has_mul (matrix m n c))
+  (P₆: has_mul (matrix n n c))
    : ∃ (U : matrix n n c),
-  let A: matrix m n c := (C ⬝ U) in A 0 0 ≠ 0  A 0 1 = 0  -- как правильно описать умножение?
+    U.det ≠ 0 && -- надо добавить определитель 
+    let A: matrix m n c := (C ⬝ U) in A 0 0 ≠ 0  A 0 1 = 0 
     :=
 begin
   sorry,
